@@ -1,0 +1,105 @@
+﻿@model tech_challenge.Models.Contact_Info
+@{
+    var baseurl = ViewBag.BaseUrl;
+    ViewData["Title"] = "Contact List";
+}
+
+<h4>List of Contacts</h4>
+<hr />
+<p>
+    @* <a id="refreshbtn" class="btn bg-primary text-white" asp-action="PlanApprovalList">Create Contact</a> *@
+    <input type="text" id="filterText" placeholder="Search any" />
+   <button class="btn btn-primary mb-2" id="btnAdd">Add Contact</button>
+</p>
+<div class="container">
+    <table class="table table-success table-striped table-responsive table-hover custom-fontsize p-4" style="cursor:pointer;">
+        <thead class="sticky-top" style="z-index:1; position:relative">
+            <tr>                
+                <th>
+                    @Html.DisplayNameFor(model => model.contact_id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.contact_lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.contact_firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.contact_middlename)
+                </th>
+                <th>
+                    <h7>Actions</h7>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tblBody">            
+        </tbody>
+    </table>
+</div>
+<div id="addcontactModal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="createcontactModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createcontactModal"></h5>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" asp-for="contact_id" value="0" />
+                <input type="hidden" asp-for="contact_status" value="AC" />
+                <input type="hidden" asp-for="created_by" value="user" />
+                <input type="hidden" asp-for="created_dt" value="" />
+                
+                <div class="mb-2">
+                    <label asp-for="contact_lastname"></label>
+                    <input type="text" asp-for="contact_lastname" class="form-control" placeholder="Last Name" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="contact_firstname"></label>
+                    <input type="text" asp-for="contact_firstname" class="form-control" placeholder="First Name" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="contact_middlename"></label>
+                    <input type="text" asp-for="contact_middlename" class="form-control" placeholder="Middle Name" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="contact_address"></label>
+                    <input type="text" asp-for="contact_address" class="form-control" placeholder="Address" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="contact_no"></label>
+                    <input type="text" asp-for="contact_no" class="form-control" placeholder="Contact Number" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="Save" type="submit" onclick="InsertContact();">Save</button>
+                <button class="btn btn-success" id="Update" type="submit" onclick="UpdateContact();" style="display:none">Update</button>
+                <button class="btn btn-danger" data-bs-dismiss="modal" onclick="HideModal();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="map" style="width: 100%; height: 500px;"></div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/app.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#filterText').on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $('tbody tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDzm6TlT9783SDqo2mgcl0yAOGlFAGdEw&callback=initMap" async defer></script>
+<script type="text/javascript">
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementsById('map'), {
+            center: { lat: 23.778074, lng: 90.397514 }, zoom: 16
+        });
+    }
+</script>

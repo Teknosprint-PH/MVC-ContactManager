@@ -1,0 +1,61 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+#filterText {
+    padding: 4px;
+    border: 2px solid #ccc;
+    font-size: x-small;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 200px;
+    float: right;
+}
+    #filterText::placeholder {
+        color: #999;
+    }
+
+    #filterText:focus {        
+        border-left: solid 1px #c1c1c1;
+        border-top: solid 1px #cfcfcf;
+        border-right: solid 1px #cfcfcf;
+        border-bottom: solid 1px #6f6f6f;
+        box-shadow: 0 0 8px #106F04;
+    }
+
+
+th {
+    text-align: center;
+    color: midnightblue;
+    font-size: medium;
+}
+
+td {
+    text-align: center;
+    font-size: smaller;
+}
+
+tr:hover {
+    color: darkgreen;
+    font-weight: 600;
+    background-color: #DAF7A6;
+}
