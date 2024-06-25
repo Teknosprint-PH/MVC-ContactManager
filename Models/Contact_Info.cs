@@ -42,6 +42,14 @@ namespace tech_challenge.Models
         [MaxLength(20)]
         public string? contact_no { get; set; }
 
+        [Column("location_lat")]
+        [DisplayName("Latitude")]        
+        public double? location_lat { get; set; }
+
+        [Column("location_long")]
+        [DisplayName("Longitude")]        
+        public double? location_long { get; set; }
+
         [Required]
         [Column("contact_status")]
         [DisplayName("Status")]

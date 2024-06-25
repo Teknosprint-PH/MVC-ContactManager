@@ -25,6 +25,8 @@ namespace tech_challenge.Data
                     contact_middlename = "Fabillar",
                     contact_address = "Tipolo, Mandaue City",
                     contact_no = "1234-567890123",
+                    location_lat = 12.8797,
+                    location_long = 121.7740,
                     contact_status = "AC",
                     created_by = "JCASO",
                     created_dt = DateTime.Now

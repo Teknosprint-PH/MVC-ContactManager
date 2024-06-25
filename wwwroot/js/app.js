@@ -9,7 +9,7 @@ function GetContacts() {
         datatype: 'json',
         contentType: 'application/json;charset=utf-8',
         success: function (response) {
-            if (response == null || response == undefined || response.length == 0) {
+            if (response == null || response == undefined || response.length == 0) {                
                 var object = '';
                 object += '<tr>';
                 object += '<td class="colspan="5">' + 'No contacts available in the database.' + '</td>';
@@ -23,7 +23,9 @@ function GetContacts() {
                     object += '<td>' + item.contact_id + '</td>';
                     object += '<td>' + item.contact_lastname + '</td>';
                     object += '<td>' + item.contact_firstname + '</td>';
-                    object += '<td>' + item.contact_middlename + '</td>';
+                    object += '<td>' + item.contact_middlename + '</td>'; 
+                    object += '<td>' + item.location_lat + '</td>'; 
+                    object += '<td>' + item.location_long + '</td>'; 
                     object += '<td> <a href="#" class="btn btn-primary btn-sm" onclick="EditContact(' + item.contact_id + ')">Edit</a> <a href="#" class="btn btn-danger btn-sm" onclick="DeleteContact(' + item.contact_id + ')">Delete</a></td>';
                 });
                 $('#tblBody').html(object);
@@ -61,6 +63,8 @@ function InsertContact() {
     formData.contact_middlename = $('#contact_middlename').val();
     formData.contact_address = $('#contact_address').val();
     formData.contact_no = $('#contact_no').val();
+    formData.location_lat = $('#location_lat').val();
+    formData.location_long = $('#location_long').val();
     formData.contact_status = $('#contact_status').val();
     formData.created_by = $('#created_by').val();
     formData.created_dt = formattedDateTime;
@@ -96,6 +100,8 @@ function ClearControls() {
     $('#contact_middlename').val('');
     $('#contact_address').val('');
     $('#contact_no').val('');
+    $('#location_lat').val('');
+    $('#location_long').val('');
     $('#contact_status').val('');
     $('#created_by').val('');
 
@@ -104,6 +110,8 @@ function ClearControls() {
     $('#contact_middlename').css('border-color', 'lightgrey');
     $('#contact_address').css('border-color', 'lightgrey');
     $('#contact_no').css('border-color', 'lightgrey');
+    $('#location_lat').css('border-color', 'lightgrey');
+    $('#location_long').css('border-color', 'lightgrey');
 }
 
 function Validate() {
@@ -149,6 +157,24 @@ function Validate() {
         $('#contact_no').css('border-color', 'lightgrey');
     }
     return isValid;
+
+    if ($('#location_lat').val().trim() == "") {
+        $('#location_lat').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#location_lat').css('border-color', 'lightgrey');
+    }
+    return isValid;
+
+    if ($('#location_long').val().trim() == "") {
+        $('#location_long').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#location_long').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
 $('#contact_lastname').change(function () {
@@ -168,6 +194,14 @@ $('#contact_address').change(function () {
 })
 
 $('#contact_no').change(function () {
+    Validate();
+})
+
+$('#location_lat').change(function () {
+    Validate();
+})
+
+$('#location_long').change(function () {
     Validate();
 })
 
@@ -195,6 +229,8 @@ function EditContact(id) {
                 $('#contact_middlename').val(response.contact_middlename);
                 $('#contact_address').val(response.contact_address);
                 $('#contact_no').val(response.contact_no);
+                $('#location_lat').val(response.location_lat);
+                $('#location_long').val(response.location_long);
                 $('#contact_status').val(response.contact_status);
                 $('#created_by').val(response.created_by);
                 $('#created_dt').val(response.created_dt);
@@ -226,7 +262,9 @@ function UpdateContact() {
     formData.contact_firstname = $('#contact_firstname').val();
     formData.contact_middlename = $('#contact_middlename').val();
     formData.contact_address = $('#contact_address').val();
-    formData.contact_no = $('#contact_no').val();    
+    formData.contact_no = $('#contact_no').val(); 
+    formData.location_lat = $('#location_lat').val(); 
+    formData.location_long = $('#location_long').val(); 
     formData.contact_status = $('#contact_status').val();    
     formData.created_by = $('#created_by').val();  
     formData.created_dt = $('#created_dt').val();    
